@@ -1,10 +1,11 @@
-const nanoid = require('nanoid');
+const {nanoid} = require('nanoid');
+const auth = require('../auth');
 
 const TABLE = 'user';
 
 module.exports = function (injectedStore) {
     let store = injectedStore;
-    if(!store){
+    if (!store) {
         store = require('../../../store/dummy');
     }
 
@@ -16,15 +17,24 @@ module.exports = function (injectedStore) {
         return store.get(TABLE, id);
     }
 
-    function upsert(body) {
+    async function upsert(body) {
         const user = {
-            name: body.name
+            name: body.name,
+            username: body.username,
         }
 
         if (body.id) {
             user.id = body.id;
         } else {
             user.id = nanoid();
+        }
+
+        if (body.password || body.username) {
+            await auth.upsert({
+                id: user.id,
+                username: user.username,
+                password: body.password,
+            })
         }
 
         return store.upsert(TABLE, user);
@@ -35,4 +45,4 @@ module.exports = function (injectedStore) {
         get,
         upsert,
     };
-} 
+}
