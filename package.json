@@ -1,37 +1,30 @@
 {
-  "name": "backend",
+  "name": "proyecto-backend-node-platzi",
   "version": "1.0.0",
-  "description": "Proyecto Final C2 Citas Procedimientos Esteticos y Bellesa",
+  "description": "Proyecto del curso avanzado de backend con NodeJS",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Falcons-Devs/backend.git"
+    "url": "git+https://github.com/CodingCarlos/proyecto-backend-node-platzi.git"
   },
-  "keywords": [
-    "bellesa",
-    "estetico",
-    "administrar",
-    "citas",
-    "Platzi",
-    "Master",
-    "C2"
-  ],
-  "author": "Byron Piedrahita Backend Equipo Falcons Dev",
+  "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Falcons-Devs/backend/issues"
+    "url": "https://github.com/CodingCarlos/proyecto-backend-node-platzi/issues"
   },
-  "homepage": "https://github.com/Falcons-Devs/backend#readme",
+  "homepage": "https://github.com/CodingCarlos/proyecto-backend-node-platzi#readme",
   "dependencies": {
-    "bcrypt": "^5.0.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "nanoid": "^3.1.10",
-    "swagger-ui-express": "^4.1.4"
+    "mysql": "^2.17.1",
+    "nanoid": "^2.1.7",
+    "request": "^2.88.2",
+    "swagger-ui-express": "^4.1.2"
   }
 }

@@ -1,16 +1,16 @@
 {
     "swagger": "2.0",
     "info": {
-      "description": "Web application to schedule care appointments at a beauty salon with an administrative and dynamic module for all kinds of aesthetic procedures.",
+      "description": "Una red social en NodeJS",
       "version": "1.0.0",
-      "title": "One Click Style"
+      "title": "RedSocialNode"
     },
-    "host": "localhost",
+    "host": "localhost:3000",
     "basePath": "/api",
     "tags": [
       {
         "name": "user",
-        "description": "Operations about user"
+        "description": "Operaciones sobre el usuario"
       }
     ],
     "schemes": [
@@ -22,12 +22,11 @@
           "tags": [
             "user"
           ],
-          "summary": "List users",
-          "description": "Bring the list of users to the Administrator",
+          "summary": "Lista los usuario",
           "operationId": "listUser",
           "responses": {
             "default": {
-              "description": "successful operation"
+              "description": "Lista de usuarios"
             }
           }
         },
@@ -35,8 +34,8 @@
           "tags": [
             "user"
           ],
-          "summary": "Create user",
-          "description": "This can only be done by the logged in user.",
+          "summary": "Crea un usuario",
+          "description": "Crea un usuario en nuestra app",
           "operationId": "createUser",
           "produces": [
             "application/json"
@@ -45,28 +44,13 @@
             {
               "in": "body",
               "name": "body",
-              "description": "Created user object",
+              "description": "Usuario creado",
               "required": true,
               "schema": {
                 "$ref": "#/definitions/User"
               }
             }
           ],
-          "responses": {
-            "default": {
-              "description": "successful operation"
-            }
-          }
-        }
-      },
-      "/user/:id": {
-        "get": {
-          "tags": [
-            "user/:id"
-          ],
-          "summary": "Bring a user according to id",
-          "description": "Bring the data of a user",
-          "operationId": "getUser",
           "responses": {
             "default": {
               "description": "successful operation"

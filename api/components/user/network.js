@@ -10,6 +10,7 @@ const router = express.Router();
 router.get('/', list)
 router.get('/:id', get);
 router.post('/', upsert);
+//router.post('/appointments', secure('appointments'), appointments);
 router.put('/', secure('update'), upsert);
 
 // Internal functions
@@ -36,5 +37,13 @@ function upsert(req, res, next) {
         })
         .catch(next);
 }
+
+/*function appointments(req, res, next){
+    Controller.appointments(req.user.id)
+    .then(data => {
+        response.success(req, res, user, 201);
+    })
+    .catch(next);
+}*/
 
 module.exports = router;

@@ -1,7 +1,7 @@
 const {nanoid} = require('nanoid');
 const auth = require('../auth');
 
-const TABLE = 'user';
+const TABLA = 'user';
 
 module.exports = function (injectedStore) {
     let store = injectedStore;
@@ -10,11 +10,11 @@ module.exports = function (injectedStore) {
     }
 
     function list() {
-        return store.list(TABLE);
+        return store.list(TABLA);
     }
 
     function get(id) {
-        return store.get(TABLE, id);
+        return store.get(TABLA, id);
     }
 
     async function upsert(body) {
@@ -37,12 +37,22 @@ module.exports = function (injectedStore) {
             })
         }
 
-        return store.upsert(TABLE, user);
+        return store.upsert(TABLA, user);
     }
+
+    /*function appointments(user){
+        const id_procedur = nanoid();
+        const appointment = {
+            id_user : user,
+            id_procedur: id_procedur,
+        }
+        return store.appointment(appointment);
+    }*/
 
     return {
         list,
         get,
         upsert,
+        //appointments,
     };
 }
