@@ -4,31 +4,31 @@ const db = {
     ],
 };
 
-async function list(table) {
-    return db[table] || [];
+async function list(tabla) {
+    return db[tabla] || [];
 }
 
-async function get(table, id) {
-    let col = await list(table);
+async function get(tabla, id) {
+    let col = await list(tabla);
     return col.filter(item => item.id === id)[0] || null;
 }
 
-async function upsert(table, data) {
-    if (!db[table]) {
-        db[table] = [];
+async function upsert(tabla, data) {
+    if (!db[tabla]) {
+        db[tabla] = [];
     }
 
-    db[table].push(data);
+    db[tabla].push(data);
 
     console.log(db);
 }
 
-async function remove(table, id) {
+async function remove(tabla, id) {
     return true;
 }
 
-async function query(table, q) {
-    let col = await list(table);
+async function query(tabla, q) {
+    let col = await list(tabla);
     let keys = Object.keys(q);
     let key = keys[0];
     
