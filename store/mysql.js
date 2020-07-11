@@ -71,19 +71,10 @@ function update(table, data) {
     })
 }
 
-/*function appointment(data) {
-    return new Promise((resolve, reject) => {
-        connection.query(`INSERT INTO appointments SET ?`, data, (err, result) => {
-            if (err) return reject(err);
-            resolve(result);
-        })
-    })  
-}*/
-
 async function upsert(table, data) {
+    console.log(data);
     const id = data.id;
     const usernew = await this.query(table, { id: id });
-    //console.log(usernew.id);
     if (usernew !== null) {
         return update(table, data);
     } else {
@@ -100,9 +91,19 @@ function query(table, query) {
     })
 }
 
+function count(table) {
+    return new Promise((resolve, reject) => {
+        connection.query(`SELECT COUNT id FROM ${table}`, (err, res) => {
+            if (err) return reject(err);
+            resolve(res[0] || null);
+        })
+    })
+}
+
 module.exports = {
     list,
     get,
     upsert,
-    query
+    query,
+    count
 };

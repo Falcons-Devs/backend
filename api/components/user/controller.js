@@ -1,4 +1,4 @@
-const {nanoid} = require('nanoid');
+const { random } = require("nano-crypto");
 const auth = require('../auth');
 
 const TABLA = 'user';
@@ -6,7 +6,7 @@ const TABLA = 'user';
 module.exports = function (injectedStore) {
     let store = injectedStore;
     if (!store) {
-        store = require('../../../store/dummy');
+        store = require('../../../store/mysql');
     }
 
     function list() {
@@ -22,11 +22,10 @@ module.exports = function (injectedStore) {
             name: body.name,
             username: body.username,
         }
-
         if (body.id) {
             user.id = body.id;
         } else {
-            user.id = nanoid();
+            user.id = await random(10).alphanumeric();
         }
 
         if (body.password || body.username) {
@@ -40,19 +39,9 @@ module.exports = function (injectedStore) {
         return store.upsert(TABLA, user);
     }
 
-    /*function appointments(user){
-        const id_procedur = nanoid();
-        const appointment = {
-            id_user : user,
-            id_procedur: id_procedur,
-        }
-        return store.appointment(appointment);
-    }*/
-
     return {
         list,
         get,
         upsert,
-        //appointments,
     };
 }

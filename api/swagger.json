@@ -1,16 +1,16 @@
 {
     "swagger": "2.0",
     "info": {
-      "description": "Una red social en NodeJS",
+      "description": "Application to schedule appointments aesthetic procedures",
       "version": "1.0.0",
-      "title": "RedSocialNode"
+      "title": "OneClickStyle"
     },
-    "host": "localhost:3000",
+    "host": "localhost:8080",
     "basePath": "/api",
     "tags": [
       {
         "name": "user",
-        "description": "Operaciones sobre el usuario"
+        "description": "Operations on the user"
       }
     ],
     "schemes": [
