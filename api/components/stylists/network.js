@@ -8,7 +8,7 @@ const router = express.Router();
 // Routes
 router.get('/', list)
 router.get('/:id', get);
-router.put('/', update);
+router.put('/:id', update);
 
 // Internal functions
 function list(req, res, next) {
@@ -28,7 +28,7 @@ function get(req, res, next) {
 }
 
 function update(req, res, next) {
-    Controller.update(req.body)
+    Controller.update(req.body, rep.params.id)
         .then((procedure) => {
             response.success(req, res, procedure, 201);
         })

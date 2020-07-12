@@ -9,11 +9,6 @@ module.exports = function checkAuth(action) {
                 next();
                 break;
             
-            /*case 'appointments':
-                auth.check.logged(req);
-                next();
-                break;*/
-
             default:
                 next();
         }

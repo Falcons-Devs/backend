@@ -10,9 +10,10 @@ const router = express.Router();
 router.get('/', list)
 router.get('/:id', get);
 router.post('/', secure('authenticated'), insert);
-router.post('/procedure', secure('authenticated'), procedure);
-router.post('/stylist', secure('authenticated'), stylist);
-router.put('/', secure('create'), upsert);
+router.post('/procedure/:id', secure('authenticated'), procedure);
+router.post('/stylist/:id', secure('authenticated'), stylist);
+router.put('/', secure('create'), ups);
+
 
 // Internal functions
 function list(req, res, next) {
@@ -40,7 +41,8 @@ function insert(req, res, next) {
 }
 
 function procedure(req, res, next) {
-    Controller.procedure(req.body, req.admin.id)
+    console.log(req.params);
+    Controller.procedure(req.body, req.params)
         .then((procedures) => {
             response.success(req, res, procedures, 201);
         })
@@ -48,15 +50,15 @@ function procedure(req, res, next) {
 }
 
 function stylist(req, res, next) {
-    Controller.stylist(req.body, req.admin.id)
+    Controller.stylist(req.body, req.params)
         .then((stylists) => {
             response.success(req, res, stylists, 201);
         })
         .catch(next);
 }
 
-function upsert(req, res, next) {
-    Controller.upsert(req.body)
+function ups(req, res, next) {
+    Controller.ups(req.body)
         .then((admin) => {
             response.success(req, res, admin, 201);
         })

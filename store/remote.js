@@ -19,7 +19,7 @@ function createRemoteDB(host, port) {
 		return req('PUT', table, data);
 	}
 
-	function upsert(table, data) {
+	function ups(table, data) {
 		if (data.id) {
 			return update(table, data);
 		}
@@ -51,7 +51,7 @@ function createRemoteDB(host, port) {
                 body,
             }, (err, req, body) => {
                 if (err) {
-                    console.error('Error con la base de datos remota', err);
+                    console.error('Error with remote database', err);
                     return reject(err.message);
                 }
 
@@ -66,7 +66,7 @@ function createRemoteDB(host, port) {
         get,
         insert,
         update,
-        upsert,
+        ups,
         query,
         req,
     }

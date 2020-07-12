@@ -18,7 +18,7 @@ const check = {
         console.log(decoded);
 
         if (decoded.id !== owner) {
-            throw error('No puedes hacer esto', 401);
+            throw error('You can not do this', 401);
         }
     },
     logged: function(req) {
@@ -28,11 +28,11 @@ const check = {
 
 function getToken(auth) {
     if (!auth) {
-        throw error('No viene token', 401);
+        throw error('No token comes', 401);
     }
 
     if (auth.indexOf('Bearer ') === -1) {
-        throw error('Formato invalido', 401);
+        throw error('Invalid format', 401);
     }
 
     let token = auth.replace('Bearer ', '');
