@@ -93,7 +93,7 @@ function query(table, query) {
 
 function count(table) {
     return new Promise((resolve, reject) => {
-        connection.query(`SELECT COUNT id FROM ${table}`, (err, res) => {
+        connection.query(`SELECT COUNT(*) id FROM ${table}`, (err, res) => {
             if (err) return reject(err);
             resolve(res[0] || null);
         })

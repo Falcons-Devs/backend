@@ -9,15 +9,14 @@ const router = express.Router();
 // Routes
 router.get('/', list)
 router.get('/:id', get);
-router.post('/', secure('check'), insert);
-//router.post('/appointments', secure('appointments'), appointments);
-router.put('/', secure('ckeck'), upsert);
+router.post('/', secure('create'), insert);
+router.put('/', secure('create'), upsert);
 
 // Internal functions
 function list(req, res, next) {
     Controller.list()
-        .then((lista) => {
-            response.success(req, res, lista, 200);
+        .then((list) => {
+            response.success(req, res, list, 200);
         })
         .catch(next);
 }
@@ -45,13 +44,5 @@ function upsert(req, res, next) {
         })
         .catch(next);
 }
-
-/*function appointments(req, res, next){
-    Controller.appointments(req.user.id)
-    .then(data => {
-        response.success(req, res, user, 201);
-    })
-    .catch(next);
-}*/
 
 module.exports = router;

@@ -20,19 +20,22 @@ module.exports = function (injectedStore) {
     async function upsert(body) {
         const user = {
             name: body.name,
-            username: body.username,
+            email: body.email,
+            active: body.active,
         }
         if (body.id) {
             user.id = body.id;
+            user.active = 1;
         } else {
             user.id = await random(10).alphanumeric();
         }
 
-        if (body.password || body.username) {
+        if (body.password || body.email) {
             await auth.upsert({
                 id: user.id,
-                username: user.username,
+                email: user.email,
                 password: body.password,
+                active: user.active,
             })
         }
 

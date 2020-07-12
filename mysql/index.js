@@ -1,3 +1,4 @@
+//const cors = require('cors');
 const express = require('express');
 const bodyParser = require('body-parser');
 require('dotenv').config();
@@ -7,6 +8,7 @@ const router = require('./network');
 
 const app = express();
 
+//app.use(cors());
 app.use(bodyParser.json());
 
 // RUTAS

@@ -1,5 +1,4 @@
-'use strict';
-
+const cors = require('cors');
 const express = require('express');
 const bodyParser = require('body-parser');
 require('dotenv').config();
@@ -14,14 +13,15 @@ const errors = require('../network/errors');
 
 const app = express();
 
+app.use(cors());
 app.use(bodyParser.json());
 
 const swaggerDoc = require('./swagger.json');
 
 
-// ROUER
+// ROUTER
 app.use('/api/admin', admin);
-app.use('/api/user', user);
+app.use('/user', user);
 app.use('/api/auth', auth);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 

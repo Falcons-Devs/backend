@@ -16,29 +16,30 @@ module.exports = function (injectedStore) {
     function get(id) {
         return store.get(TABLA, id);
     }
-    /*async function insert(body) {
+    async function insert(body) {
         const admin = {
             name: body.name,
-            username: body.username,
+            email: body.email,
         }
 
         admin.id = await random(10).alphanumeric();
 
-        if (body.password || body.username) {
+        if (body.password || body.email) {
             await auth.upsert({
                 id: admin.id,
-                username: admin.username,
+                email: admin.email,
                 password: body.password,
             })
         }
 
         return store.upsert(TABLA, admin);
-    }*/
+    }
 
     async function upsert(body) {
         const admin = {
             name: body.name,
-            username: body.username,
+            email: body.email,
+            active: body.active,
         }
         if (body.id) {
             admin.id = body.id;
@@ -46,11 +47,12 @@ module.exports = function (injectedStore) {
             admin.id = await random(10).alphanumeric();
         }
 
-        if (body.password || body.username) {
+        if (body.password || body.email) {
             await auth.upsert({
                 id: admin.id,
-                username: admin.username,
+                email: admin.email,
                 password: body.password,
+                active: admin.active,
             })
         }
 
@@ -61,5 +63,6 @@ module.exports = function (injectedStore) {
         list,
         get,
         upsert,
+        insert,
     };
 }

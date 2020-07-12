@@ -82,7 +82,7 @@
           "id": {
             "type": "string"
           },
-          "username": {
+          "email": {
             "type": "string"
           },
           "password": {
