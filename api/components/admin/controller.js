@@ -35,6 +35,31 @@ module.exports = function (injectedStore) {
         return store.upsert(TABLA, admin);
     }
 
+    async function procedure(body, admin) {
+        const procedures = {
+            name_procedure: body.name_procedure,
+            description: body.description,
+            price: body.price,
+            duration_time: body.duration_time,
+            active: body.active,
+            id_admin: admin.id,
+        }
+        producers.id = await random(10).alphanumeric();
+        return store.insert("producers", producers);
+    }
+
+    async function stylist(body, admin) {
+        const stylists = {
+            name_stylist: body.name_stylist,
+            email: body.email,
+            availability: body.availability,
+            dealy_time: body.dealy_time,
+            id_admin: admin.id,
+        }
+        stylists.id = await random(10).alphanumeric();
+        return store.insert("stylists", stylists);
+    }
+
     async function upsert(body) {
         const admin = {
             name: body.name,
@@ -64,5 +89,7 @@ module.exports = function (injectedStore) {
         get,
         upsert,
         insert,
+        procedure,
+        stylist,
     };
 }
