@@ -1,7 +1,7 @@
 module.exports = {
     remoteDB: process.env.REMOTE_DB,
     api: {
-        port: process.env.API_POR,
+        port: process.env.API_PORT,
     },
     jwt: {
         secret: process.env.JWT_SECRET,

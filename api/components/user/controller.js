@@ -1,7 +1,7 @@
 const { random } = require("nano-crypto");
 const auth = require('../auth');
 
-const TABLA = 'user';
+const TABLE = 'user';
 
 module.exports = function (injectedStore) {
     let store = injectedStore;
@@ -10,38 +10,41 @@ module.exports = function (injectedStore) {
     }
 
     function list() {
-        return store.list(TABLA);
+        return store.list(TABLE);
     }
 
     function get(id) {
-        return store.get(TABLA, id);
+        return store.get(TABLE, id);
     }
 
-    async function upsert(body) {
+    async function ups(body) {
         const user = {
             name: body.name,
-            username: body.username,
+            email: body.email,
+            active: body.active,
         }
         if (body.id) {
             user.id = body.id;
+            user.active = 1;
         } else {
             user.id = await random(10).alphanumeric();
         }
 
-        if (body.password || body.username) {
-            await auth.upsert({
+        if (body.password || body.email) {
+            await auth.ups({
                 id: user.id,
-                username: user.username,
+                email: user.email,
                 password: body.password,
+                active: user.active,
             })
         }
 
-        return store.upsert(TABLA, user);
+        return store.ups(TABLE, user);
     }
 
     return {
         list,
         get,
-        upsert,
+        ups,
     };
 }

@@ -1,7 +1,7 @@
 const { random } = require("nano-crypto");
 const auth = require('../auth');
 
-const TABLA = 'admin';
+const TABLE = 'admin';
 
 module.exports = function (injectedStore) {
     let store = injectedStore;
@@ -10,35 +10,62 @@ module.exports = function (injectedStore) {
     }
 
     function list() {
-        return store.list(TABLA);
+        return store.list(TABLE);
     }
 
     function get(id) {
-        return store.get(TABLA, id);
+        return store.get(TABLE, id);
     }
-    /*async function insert(body) {
+    async function insert(body) {
         const admin = {
             name: body.name,
-            username: body.username,
+            email: body.email,
         }
 
         admin.id = await random(10).alphanumeric();
 
-        if (body.password || body.username) {
-            await auth.upsert({
+        if (body.password || body.email) {
+            await auth.ups({
                 id: admin.id,
-                username: admin.username,
+                email: admin.email,
                 password: body.password,
             })
         }
 
-        return store.upsert(TABLA, admin);
-    }*/
+        return store.ups(TABLE, admin);
+    }
 
-    async function upsert(body) {
+    async function procedure(body, admin) {
+        const admin_s = admin.id.substr(1,admin.id.length-2);
+        const procedures = {
+            name_procedure: body.name_procedure,
+            description: body.description,
+            price: body.price,
+            duration_time: body.duration_time,
+            active: body.active,
+            id_admin: admin_s,
+        }
+        procedures.id = await random(10).alphanumeric();
+        return store.insert("procedures", procedures);
+    }
+
+    async function stylist(body, admin) {
+        const admin_s = admin.id.substr(1,admin.id.length-2);
+        const stylists = {
+            name_stylist: body.name_stylist,
+            email: body.email,
+            dealy_time: body.dealy_time,
+            id_admin: admin_s,
+        }
+        stylists.id = await random(10).alphanumeric();
+        return store.insert("stylists", stylists);
+    }
+
+    async function ups(body) {
         const admin = {
             name: body.name,
-            username: body.username,
+            email: body.email,
+            active: body.active,
         }
         if (body.id) {
             admin.id = body.id;
@@ -46,20 +73,24 @@ module.exports = function (injectedStore) {
             admin.id = await random(10).alphanumeric();
         }
 
-        if (body.password || body.username) {
-            await auth.upsert({
+        if (body.password || body.email) {
+            await auth.ups({
                 id: admin.id,
-                username: admin.username,
+                email: admin.email,
                 password: body.password,
+                active: admin.active,
             })
         }
 
-        return store.upsert(TABLA, admin);
+        return store.ups(TABLE, admin);
     }
 
     return {
         list,
         get,
-        upsert,
+        ups,
+        insert,
+        procedure,
+        stylist,
     };
 }

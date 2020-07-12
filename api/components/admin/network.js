@@ -9,15 +9,17 @@ const router = express.Router();
 // Routes
 router.get('/', list)
 router.get('/:id', get);
-router.post('/', secure('check'), insert);
-//router.post('/appointments', secure('appointments'), appointments);
-router.put('/', secure('ckeck'), upsert);
+router.post('/', secure('authenticated'), insert);
+router.post('/procedure/:id', secure('authenticated'), procedure);
+router.post('/stylist/:id', secure('authenticated'), stylist);
+router.put('/', secure('create'), ups);
+
 
 // Internal functions
 function list(req, res, next) {
     Controller.list()
-        .then((lista) => {
-            response.success(req, res, lista, 200);
+        .then((list) => {
+            response.success(req, res, list, 200);
         })
         .catch(next);
 }
@@ -38,20 +40,29 @@ function insert(req, res, next) {
         .catch(next);
 }
 
-function upsert(req, res, next) {
-    Controller.upsert(req.body)
+function procedure(req, res, next) {
+    console.log(req.params);
+    Controller.procedure(req.body, req.params)
+        .then((procedures) => {
+            response.success(req, res, procedures, 201);
+        })
+        .catch(next);
+}
+
+function stylist(req, res, next) {
+    Controller.stylist(req.body, req.params)
+        .then((stylists) => {
+            response.success(req, res, stylists, 201);
+        })
+        .catch(next);
+}
+
+function ups(req, res, next) {
+    Controller.ups(req.body)
         .then((admin) => {
             response.success(req, res, admin, 201);
         })
         .catch(next);
 }
-
-/*function appointments(req, res, next){
-    Controller.appointments(req.user.id)
-    .then(data => {
-        response.success(req, res, user, 201);
-    })
-    .catch(next);
-}*/
 
 module.exports = router;

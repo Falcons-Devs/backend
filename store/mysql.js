@@ -2,7 +2,7 @@ const mysql = require('mysql');
 
 const config = require('../config');
 
-const dbconf = {
+const base = {
     host: config.mysql.host,
     user: config.mysql.user,
     password: config.mysql.password,
@@ -12,7 +12,7 @@ const dbconf = {
 let connection;
 
 function handleCon() {
-    connection = mysql.createConnection(dbconf);
+    connection = mysql.createConnection(base);
 
     connection.connect((err) => {
         if (err) {
@@ -71,11 +71,10 @@ function update(table, data) {
     })
 }
 
-async function upsert(table, data) {
-    console.log(data);
+async function ups(table, data) {
     const id = data.id;
-    const usernew = await this.query(table, { id: id });
-    if (usernew !== null) {
+    const row = await this.query(table, { id: id });
+    if (row !== null) {
         return update(table, data);
     } else {
         return insert(table, data);
@@ -93,7 +92,7 @@ function query(table, query) {
 
 function count(table) {
     return new Promise((resolve, reject) => {
-        connection.query(`SELECT COUNT id FROM ${table}`, (err, res) => {
+        connection.query(`SELECT COUNT(*) id FROM ${table}`, (err, res) => {
             if (err) return reject(err);
             resolve(res[0] || null);
         })
@@ -103,7 +102,8 @@ function count(table) {
 module.exports = {
     list,
     get,
-    upsert,
+    ups,
     query,
-    count
+    count,
+    insert
 };
