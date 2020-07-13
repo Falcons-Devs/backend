@@ -1,5 +1,18 @@
+/**
+ * @fileoverview  Error control in responses
+ * @version                 1.0
+ * @author        Byron Piedrahita <https://github.com/ByronPiedrahita>
+ * @copyright                         Platzi Master
+ **/
+
+//Technical requirements
 const response = require('./response');
 
+/**
+* Create and control the errors   
+* @param  {err, req, res, next}
+* @return  {response, require, message, status}
+**/
 function errors(err, req, res, next) {
     console.error('[error]', err);
 

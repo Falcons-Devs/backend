@@ -1,5 +1,5 @@
 /**
- * @fileoverview       Network layer of the component stylists
+ * @fileoverview       Network layer of the component appointments
  * @version                               1.0
  * @author         Byron Piedrahita <https://github.com/ByronPiedrahita>
  * @copyright                         Platzi Master
@@ -14,7 +14,7 @@ const router = express.Router();
 // Routes
 router.get('/', list)
 router.get('/:id', get);
-router.put('/:id', update);
+router.put('/', update);
 
 /**
 * Create and error control the data that is sent to the CONTROLLER  
@@ -37,8 +37,9 @@ function get(req, res, next) {
         .catch(next);
 }
 
+
 function update(req, res, next) {
-    Controller.update(req.body, rep.params.id)
+    Controller.update(req.body)
         .then((procedure) => {
             response.success(req, res, procedure, 201);
         })

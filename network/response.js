@@ -1,3 +1,11 @@
+/**
+ * @fileoverview  Responses control in successful satisfaction
+ * @version                 1.0
+ * @author        Byron Piedrahita <https://github.com/ByronPiedrahita>
+ * @copyright                         Platzi Master
+ **/
+
+//Correct standard request
 exports.success = function (req, res, message, status) {
     let statusCode = status || 200;
     let statusMessage = message || '';
@@ -9,6 +17,7 @@ exports.success = function (req, res, message, status) {
     });
 }
 
+//Server connection error
 exports.error = function (req, res, message, status) {
     let statusCode = status || 500;
     let statusMessage = message || 'Internal server error';

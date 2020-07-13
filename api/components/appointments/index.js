@@ -1,5 +1,5 @@
 /**
- * @fileoverview       Entry point of the component procedures
+ * @fileoverview       Entry point of the component appointments
  * @version                               1.0
  * @author         Byron Piedrahita <https://github.com/ByronPiedrahita>
  * @copyright                         Platzi Master

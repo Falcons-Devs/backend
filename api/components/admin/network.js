@@ -1,9 +1,15 @@
-const express = require('express');
+/**
+ * @fileoverview       Network layer of the component administrators
+ * @version                               1.0
+ * @author         Byron Piedrahita <https://github.com/ByronPiedrahita>
+ * @copyright                         Platzi Master
+ **/
 
+//Technical requirements
+const express = require('express');
 const secure = require('./secure');
 const response = require('../../../network/response');
 const Controller = require('./index');
-
 const router = express.Router();
 
 // Routes
@@ -12,10 +18,13 @@ router.get('/:id', get);
 router.post('/', secure('authenticated'), insert);
 router.post('/procedure/:id', secure('authenticated'), procedure);
 router.post('/stylist/:id', secure('authenticated'), stylist);
-router.put('/', secure('create'), ups);
+router.put('/', secure('update'), ups);
 
-
-// Internal functions
+/**
+* Create and error control the data that is sent to the CONTROLLER  
+* @param  {request, responce, next}
+* @return  {list, get, insert, procedure, stylist, ups}
+**/ 
 function list(req, res, next) {
     Controller.list()
         .then((list) => {
