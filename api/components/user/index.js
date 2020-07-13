@@ -1,4 +1,11 @@
+/**
+ * @fileoverview       Entry point of the component users
+ * @version                               1.0
+ * @author         Byron Piedrahita <https://github.com/ByronPiedrahita>
+ * @copyright                         Platzi Master
+ **/
 
+//Technical requirements
 const config = require('../../../config');
 
 let store;

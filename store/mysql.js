@@ -1,7 +1,15 @@
-const mysql = require('mysql');
+/**
+ * @fileoverview       Connection to the database and handling of SQL queries
+ * @version                               1.0
+ * @author         Byron Piedrahita <https://github.com/ByronPiedrahita>
+ * @copyright                        Platzi Master
+ **/
 
+//Technical requirements
+const mysql = require('mysql');
 const config = require('../config');
 
+//Configuration of Data Base
 const base = {
     host: config.mysql.host,
     user: config.mysql.user,
@@ -11,6 +19,7 @@ const base = {
 
 let connection;
 
+//Conection
 function handleCon() {
     connection = mysql.createConnection(base);
 
@@ -35,6 +44,7 @@ function handleCon() {
 
 handleCon();
 
+//Query that lists the data of a table
 function list(table) {
     return new Promise( (resolve, reject) => {
         connection.query(`SELECT * FROM ${table}`, (err, data) => {
@@ -44,6 +54,7 @@ function list(table) {
     })
 }
 
+//Query that looks for a data in the table by its identifier
 function get(table, id) {
     return new Promise((resolve, reject) => {
         connection.query(`SELECT * FROM ${table} WHERE id=${id}`, (err, data) => {
@@ -53,6 +64,7 @@ function get(table, id) {
     })
 }
 
+//Query that creates new data in the table
 function insert(table, data) {
     return new Promise((resolve, reject) => {
         connection.query(`INSERT INTO ${table} SET ?`, data, (err, result) => {
@@ -62,6 +74,7 @@ function insert(table, data) {
     })
 }
 
+//Query that updates the data of a table
 function update(table, data) {
     return new Promise((resolve, reject) => {
         connection.query(`UPDATE ${table} SET ? WHERE id=?`, [data, data.id], (err, result) => {
@@ -71,6 +84,7 @@ function update(table, data) {
     })
 }
 
+//Query that identifies if a record is created or if it is being updated
 async function ups(table, data) {
     const id = data.id;
     const row = await this.query(table, { id: id });
@@ -81,6 +95,7 @@ async function ups(table, data) {
     }
 }
 
+//Query that allows other queries
 function query(table, query) {
     return new Promise((resolve, reject) => {
         connection.query(`SELECT * FROM ${table} WHERE ?`, query, (err, res) => {
@@ -90,20 +105,12 @@ function query(table, query) {
     })
 }
 
-function count(table) {
-    return new Promise((resolve, reject) => {
-        connection.query(`SELECT COUNT(*) id FROM ${table}`, (err, res) => {
-            if (err) return reject(err);
-            resolve(res[0] || null);
-        })
-    })
-}
-
 module.exports = {
     list,
     get,
+    insert,
+    update,
     ups,
     query,
-    count,
-    insert
+    
 };

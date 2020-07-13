@@ -1,8 +1,14 @@
-const express = require('express');
+/**
+ * @fileoverview       Network layer of the component procedures
+ * @version                               1.0
+ * @author         Byron Piedrahita <https://github.com/ByronPiedrahita>
+ * @copyright                         Platzi Master
+ **/
 
+//Technical requirements
+const express = require('express');
 const response = require('../../../network/response');
 const Controller = require('./index');
-
 const router = express.Router();
 
 // Routes
@@ -10,7 +16,11 @@ router.get('/', list)
 router.get('/:id', get);
 router.put('/', update);
 
-// Internal functions
+/**
+* Create and error control the data that is sent to the CONTROLLER  
+* @param  {request, responce, next}
+* @return  {list, get, update}
+**/ 
 function list(req, res, next) {
     Controller.list()
         .then((list) => {
